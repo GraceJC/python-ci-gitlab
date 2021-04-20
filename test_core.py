@@ -17,36 +17,26 @@ class TestCoreSuites:
 # 4.之後提款 700 元, pytest 預期會接到 RuntimeError
 #
 ##########################################################################################
-#    def __init__(self,customer:Customer):       
-#       customer.deposit(INIT_MONEY)
-#       self.customer = customer
-        
     def test_1(self):
+        self.customer = customer
         self.customer.deposit(1000)
-#        print(self.customer.deposit)
         assert self.customer.balance == 1100
 
     def test_2(self):
+        self.customer = customer
         self.customer.withdraw(500)
         assert self.customer.balance == 600
 
     def test_3(self):
+        self.customer = customer
         CustomerDataProcess.add_interest(customer,0.1)
-        assert self.customer.balance == 660
+        assert int(self.customer.balance) == 660
     
-    def test_4():
+    def test_4(self):
+        self.customer = customer
         with pytest.raises(RuntimeError) as ex:
             customer.withdraw(700)
         assert ex is RuntimeError
 
 customer = Customer('Test User','100-1100')
 customer.deposit(INIT_MONEY)
-c=TestCoreSuites(customer)
-c.test_1()
-c.test_2()
-c.test_3()
-c.test_4()
-    #test_1()
-    #test_2()
-    #test_3()
-    #test_4()
